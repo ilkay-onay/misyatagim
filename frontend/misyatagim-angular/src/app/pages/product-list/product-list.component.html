@@ -1,0 +1,21 @@
+<mat-toolbar color="primary">
+  <span>Misyatağım</span>
+  </mat-toolbar>
+
+  <div class="container">
+  <mat-card *ngFor="let product of products" appHighlight>
+      <mat-card-header>
+      <mat-card-title>{{ product.name }}</mat-card-title>
+      </mat-card-header>
+       <div *ngIf="product.imageBase64s && product.imageBase64s.length > 0">
+         <img [src]="'data:image/png;base64,' + product.imageBase64s[0]" style="max-width: 100%; height: auto;" alt="Yatak Resmi"/>
+      </div>
+      <mat-card-content>
+      <p>{{ product.description | truncate:100 }}</p>
+      <p><strong>Fiyat:</strong> {{ product.price | currency }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+      <button mat-button (click)="navigateToProduct(product.slug)">Detaylar</button>
+      </mat-card-actions>
+  </mat-card>
+  </div>

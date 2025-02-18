@@ -1,0 +1,62 @@
+<div class="container">
+  <h2>{{ isEditMode ? 'Ürün Düzenle' : 'Yeni Ürün Ekle' }}</h2>
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline">
+      <mat-label>Ürün Adı</mat-label>
+      <input matInput type="text" formControlName="name" required>
+      <mat-error *ngIf="productForm.get('name')?.hasError('required')">Ürün adı gereklidir.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Açıklama</mat-label>
+      <textarea matInput formControlName="description" required></textarea>
+      <mat-error *ngIf="productForm.get('description')?.hasError('required')">Açıklama gereklidir.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Fiyat</mat-label>
+      <input matInput type="number" formControlName="price" required>
+      <mat-error *ngIf="productForm.get('price')?.hasError('required')">Fiyat gereklidir.</mat-error>
+      <mat-error *ngIf="productForm.get('price')?.hasError('min')">Fiyat 0'dan büyük olmalıdır.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Boyut</mat-label>
+      <input matInput type="text" formControlName="size">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Malzeme</mat-label>
+      <input matInput type="text" formControlName="material">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Renk</mat-label>
+      <input matInput type="text" formControlName="color">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Sertlik</mat-label>
+      <mat-select formControlName="firmness">
+        <mat-option value="Yumuşak">Yumuşak</mat-option>
+        <mat-option value="Orta">Orta</mat-option>
+        <mat-option value="Sert">Sert</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div>
+      <input type="file" multiple (change)="onFileChange($event)">
+      <div *ngFor="let imagePreview of imagePreviews; let i = index">
+        <img [src]="imagePreview" style="max-width: 100px; height: auto;" alt="Önizleme">
+        <button mat-icon-button color="warn" (click)="removeImageBase64Input(i)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button mat-raised-button color="primary" type="submit">{{ isEditMode ? 'Kaydet' : 'Ekle' }}</button>
+      <button mat-button [routerLink]="['/admin/products']">İptal</button>
+    </div>
+  </form>
+</div>

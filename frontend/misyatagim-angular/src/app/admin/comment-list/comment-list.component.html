@@ -1,0 +1,31 @@
+<div class="container">
+    <h2>Yorumlar</h2>
+    <table mat-table [dataSource]="comments" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> ID </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="productId">
+            <th mat-header-cell *matHeaderCellDef> Ürün ID </th>
+            <td mat-cell *matCellDef="let element"> {{element.productId}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="text">
+            <th mat-header-cell *matHeaderCellDef> Yorum </th>
+            <td mat-cell *matCellDef="let element"> {{element.text}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef> İşlemler </th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-button color="warn" (click)="openDeleteDialog(element.id)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>

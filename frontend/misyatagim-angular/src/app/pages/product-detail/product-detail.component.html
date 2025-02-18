@@ -1,0 +1,61 @@
+<mat-toolbar color="primary">
+  <span>Misyatağım</span>
+</mat-toolbar>
+
+<div class="container" *ngIf="product">
+  <mat-card>
+      <mat-card-header>
+          <mat-card-title>{{ product.name }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+          <div *ngIf="product.imageBase64s">
+              <img *ngFor="let image of product.imageBase64s" [src]="'data:image/png;base64,' + image" style="max-width: 100%; height: auto;" alt="Yatak Resmi"/>
+          </div>
+          <p>{{ product.description }}</p>
+          <p><strong>Fiyat:</strong> {{ product.price | currency }}</p>
+          <p *ngIf="product.size"><strong>Boyut:</strong> {{ product.size }}</p>
+          <p *ngIf="product.material"><strong>Malzeme:</strong> {{ product.material }}</p>
+          <p *ngIf="product.color"><strong>Renk:</strong> {{ product.color }}</p>
+          <p *ngIf="product.firmness"><strong>Sertlik:</strong> {{ product.firmness }}</p>
+      </mat-card-content>
+  </mat-card>
+
+  <mat-card *ngIf="comments.length > 0">
+      <mat-card-header>
+          <mat-card-title>Yorumlar</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+          <mat-list>
+              <mat-list-item *ngFor="let comment of comments">
+                  <h4 matListItemTitle>{{ comment.text }}</h4>
+                  <p matListItemLine>
+                     <strong>{{ comment.username }}</strong> - {{ formatDate(comment.createdAt) }}
+                  </p>
+                   <button *ngIf="isAdmin() || userInfo?.nameid == comment.userId" mat-button color="warn" (click)="deleteComment(comment)">
+                          <mat-icon>delete</mat-icon>
+                   </button>
+              </mat-list-item>
+          </mat-list>
+      </mat-card-content>
+  </mat-card>
+
+    <mat-card *ngIf="isLoggedIn">
+      <mat-card-header>
+          <mat-card-title>Yorum Ekle</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+          <form (ngSubmit)="onSubmit()">
+              <mat-form-field appearance="fill">
+                  <mat-label>Yorumunuz</mat-label>
+                  <textarea matInput [(ngModel)]="commentText" name="commentText" required></textarea>
+              </mat-form-field>
+              <button mat-raised-button color="primary" type="submit">Gönder</button>
+          </form>
+      </mat-card-content>
+  </mat-card>
+   <mat-card *ngIf="!isLoggedIn">
+      <mat-card-content>
+         <p>Yorum yapabilmek için giriş yapınız.</p>
+      </mat-card-content>
+    </mat-card>
+</div>

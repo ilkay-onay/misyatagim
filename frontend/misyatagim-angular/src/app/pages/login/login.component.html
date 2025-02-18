@@ -1,0 +1,19 @@
+<mat-card>
+    <mat-card-header>
+      <mat-card-title>Login</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field appearance="outline">
+        <mat-label>Username</mat-label>
+        <input matInput type="text" [(ngModel)]="username" required>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" [(ngModel)]="password" required>
+      </mat-form-field>
+       <div *ngIf="loginError" style="color:red">
+            {{ loginError }}
+        </div>
+      <button mat-raised-button color="primary" (click)="login()">Login</button>
+    </mat-card-content>
+  </mat-card>

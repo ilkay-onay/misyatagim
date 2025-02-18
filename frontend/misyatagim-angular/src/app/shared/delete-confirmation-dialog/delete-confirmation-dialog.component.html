@@ -1,0 +1,8 @@
+<h2 mat-dialog-title>Onay</h2>
+<mat-dialog-content>
+  {{ data.message }}
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">İptal</button>
+  <button mat-raised-button color="warn" (click)="onConfirm()">Sil</button>
+</mat-dialog-actions>

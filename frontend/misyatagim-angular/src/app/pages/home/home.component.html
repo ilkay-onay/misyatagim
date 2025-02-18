@@ -1,0 +1,26 @@
+<mat-toolbar color="primary">
+  <span>Misyatağım</span>
+  <span class="spacer"></span>
+  <div *ngIf="!isLoggedIn">
+    <button mat-button [routerLink]="['/register']">Hesap Oluştur</button>
+    <button mat-button [routerLink]="['/login']">Hesap Gir</button>
+  </div>
+  <div *ngIf="isLoggedIn">
+    <span>{{ username }}</span>
+    <button mat-button (click)="logout()">Hesaptan Çık</button>
+  </div>
+</mat-toolbar>
+
+<div class="container">
+  <h1>Yataklarımız</h1>
+  <div class="product-grid">
+    <mat-card *ngFor="let product of products" class="product-card" (click)="navigateToProduct(product.slug)">
+      <img *ngIf="product.imageBase64s && product.imageBase64s.length > 0" [src]="'data:image/png;base64,' + product.imageBase64s[0]" alt="{{ product.name }}" class="product-image">
+      <mat-card-content>
+        <h2>{{ product.name }}</h2>
+        <p>{{ product.description | truncate:100 }}</p>
+        <p><strong>Fiyat:</strong> {{ product.price | currency }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
