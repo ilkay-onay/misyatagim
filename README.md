@@ -1,4 +1,3 @@
-```markdown
 # misyatagim
 
 ## Overview
@@ -353,4 +352,3 @@ Once all services are running, you can access the application through your brows
 ## License
 
 This project is licensed under the GNU GPL v3.0 license. See the [LICENSE](LICENSE) file for more details.
-```
